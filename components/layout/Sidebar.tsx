@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 import {
   BookOpen, Home, Stethoscope, HelpCircle,
   ClipboardList, Calendar, Settings, ChevronLeft,
@@ -52,12 +53,16 @@ export default function Sidebar() {
       {!collapsed && (
         <div className="px-4 py-3 border-b border-gray-100 bg-gray-50">
           <div className="flex items-center gap-2 mb-2">
-            <div className="h-8 w-8 rounded-full bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-white text-xs font-bold">
-              MG
-            </div>
+            <Image
+              src="/assets/Ana Chang.jpeg"
+              alt="Ana Chang"
+              width={32}
+              height={32}
+              className="rounded-full object-cover shrink-0 ring-1 ring-brand-200"
+            />
             <div className="min-w-0">
-              <p className="text-sm font-semibold text-gray-900 truncate">María García</p>
-              <p className="text-xs text-gray-500">Plan Pro</p>
+              <p className="text-sm font-semibold text-gray-900 truncate">Ana Chang</p>
+              <p className="text-xs text-gray-500">Plan Pro · Barcelona</p>
             </div>
           </div>
           <div className="flex items-center gap-3 text-xs text-gray-600">
