@@ -53,9 +53,10 @@ export default function CalendarioPage() {
 
   const daysInMonth  = getDaysInMonth(currentYear, currentMonth);
   const firstDay     = getFirstDayOfMonth(currentYear, currentMonth);
-  const calendarDays = Array.from({ length: firstDay }, () => null).concat(
-    Array.from({ length: daysInMonth }, (_, i) => i + 1)
-  );
+const calendarDays: (number | null)[] = [
+    ...Array.from({ length: firstDay }, () => null),
+    ...Array.from({ length: daysInMonth }, (_, i) => i + 1),
+  ];
 
   function prevMonth() {
     if (currentMonth === 0) { setMonth(11); setYear(y => y - 1); }
