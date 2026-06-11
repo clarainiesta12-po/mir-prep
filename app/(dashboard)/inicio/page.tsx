@@ -1,5 +1,6 @@
 import { Flame, Trophy, Target, Clock, TrendingUp, BookOpen, ChevronRight, Play } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { simulacrosMock } from "@/lib/data/simulacros.mock";
 import { preguntasMock } from "@/lib/data/preguntas.mock";
 import { especialidades } from "@/lib/data/especialidades.mock";
@@ -20,14 +21,23 @@ export default function InicioPage() {
   return (
     <div className="p-6 lg:p-8 max-w-7xl mx-auto">
       {/* Welcome */}
-      <div className="mb-8">
-        <h1 className="text-2xl font-display font-bold text-gray-900">
-          Buenos días, María 👋
-        </h1>
-        <p className="text-gray-500 mt-1">
-          Llevas <span className="font-semibold text-orange-500">12 días</span> de racha.
-          Hoy tienes 3 sesiones planificadas.
-        </p>
+      <div className="mb-8 flex items-center gap-4">
+        <Image
+          src="/assets/Ana Chang.jpeg"
+          alt="Ana Chang"
+          width={56}
+          height={56}
+          className="rounded-full object-cover shrink-0 ring-2 ring-brand-200"
+        />
+        <div>
+          <h1 className="text-2xl font-display font-bold text-gray-900">
+            Buenos días, Ana 👋
+          </h1>
+          <p className="text-gray-500 mt-1">
+            Llevas <span className="font-semibold text-orange-500">12 días</span> de racha.
+            Hoy tienes 3 sesiones planificadas.
+          </p>
+        </div>
       </div>
 
       {/* Stats row */}
