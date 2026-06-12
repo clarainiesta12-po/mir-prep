@@ -4,16 +4,24 @@ import Image from "next/image";
 import { simulacrosMock } from "@/lib/data/simulacros.mock";
 import { preguntasMock } from "@/lib/data/preguntas.mock";
 import { especialidades } from "@/lib/data/especialidades.mock";
-import { formatTiempo } from "@/lib/utils";
+import { supabase } from "@/lib/supabase";
 
-const statsCards = [
-  { label: "Racha actual",       value: "12 días",  icon: Flame,     color: "text-orange-500", bg: "bg-orange-50" },
-  { label: "Posición ranking",   value: "#34",       icon: Trophy,    color: "text-yellow-500", bg: "bg-yellow-50" },
-  { label: "% Acierto global",   value: "73%",       icon: Target,    color: "text-green-500",  bg: "bg-green-50" },
-  { label: "Tiempo total",       value: "142h",      icon: Clock,     color: "text-brand-500",  bg: "bg-brand-50" },
-];
+export default async function InicioPage() {
+  const { data: perfil } = await supabase
+    .from("perfil_ana")
+    .select("nombre, apellidos, racha_actual, racha_mayor, fecha_mir, horas_objetivo_dia, especialidades_fuertes, especialidades_debiles, especialidades_favoritas")
+    .single();
 
-export default function InicioPage() {
+  const nombre        = perfil?.nombre      ?? "Ana";
+  const rachaActual   = perfil?.racha_actual ?? 12;
+
+  const statsCards = [
+    { label: "Racha actual",     value: `${rachaActual} días`, icon: Flame,  color: "text-orange-500", bg: "bg-orange-50" },
+    { label: "Posición ranking", value: "#34",                 icon: Trophy, color: "text-yellow-500", bg: "bg-yellow-50" },
+    { label: "% Acierto global", value: "73%",                 icon: Target, color: "text-green-500",  bg: "bg-green-50"  },
+    { label: "Tiempo total",     value: "142h",                icon: Clock,  color: "text-brand-500",  bg: "bg-brand-50"  },
+  ];
+
   const pendientes = simulacrosMock.filter((s) => s.estado !== "completado");
   const recientes  = preguntasMock.slice(0, 4);
   const topEsp     = [...especialidades].sort((a, b) => b.porcentajeMIR - a.porcentajeMIR).slice(0, 4);
@@ -31,10 +39,10 @@ export default function InicioPage() {
         />
         <div>
           <h1 className="text-2xl font-display font-bold text-gray-900">
-            Buenos días, Ana 👋
+            Buenos días, {nombre} 👋
           </h1>
           <p className="text-gray-500 mt-1">
-            Llevas <span className="font-semibold text-orange-500">12 días</span> de racha.
+            Llevas <span className="font-semibold text-orange-500">{rachaActual} días</span> de racha.
             Hoy tienes 3 sesiones planificadas.
           </p>
         </div>
