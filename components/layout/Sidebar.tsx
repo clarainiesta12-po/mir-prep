@@ -7,7 +7,7 @@ import Image from "next/image";
 import {
   BookOpen, Home, Stethoscope, HelpCircle,
   ClipboardList, Calendar, Settings, ChevronLeft,
-  ChevronRight, LogOut, Trophy, Flame,
+  ChevronRight, LogOut, Trophy, Flame, UserCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -20,6 +20,7 @@ const navItems = [
 ];
 
 const bottomItems = [
+  { href: "/perfil",    label: "Mi perfil",    icon: UserCircle },
   { href: "/rankings",  label: "Rankings",     icon: Trophy },
   { href: "/ajustes",   label: "Ajustes",      icon: Settings },
 ];
@@ -52,7 +53,7 @@ export default function Sidebar() {
       {/* User quick stats */}
       {!collapsed && (
         <div className="px-4 py-3 border-b border-gray-100 bg-gray-50">
-          <div className="flex items-center gap-2 mb-2">
+          <Link href="/perfil" className="flex items-center gap-2 mb-2 hover:opacity-80 transition-opacity">
             <Image
               src="/assets/Ana Chang.jpeg"
               alt="Ana Chang"
@@ -64,7 +65,7 @@ export default function Sidebar() {
               <p className="text-sm font-semibold text-gray-900 truncate">Ana Chang</p>
               <p className="text-xs text-gray-500">Plan Pro · Barcelona</p>
             </div>
-          </div>
+          </Link>
           <div className="flex items-center gap-3 text-xs text-gray-600">
             <span className="flex items-center gap-1">
               <Flame className="h-3.5 w-3.5 text-orange-500" />
