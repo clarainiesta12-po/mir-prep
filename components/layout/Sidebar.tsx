@@ -7,7 +7,7 @@ import Image from "next/image";
 import {
   BookOpen, Home, Stethoscope, HelpCircle,
   ClipboardList, Calendar, Settings, ChevronLeft,
-  ChevronRight, LogOut, Trophy, Flame, UserCircle,
+  ChevronRight, LogOut, Trophy, Flame, UserCircle, MessageSquare,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -17,6 +17,7 @@ const navItems = [
   { href: "/preguntas",      label: "Preguntas",       icon: HelpCircle },
   { href: "/simulacros",     label: "Simulacros",      icon: ClipboardList },
   { href: "/calendario",     label: "Calendario",      icon: Calendar },
+  { href: "/chat",           label: "Chat IA",         icon: MessageSquare },
 ];
 
 const bottomItems = [
