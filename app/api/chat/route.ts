@@ -3,6 +3,8 @@ import Groq from 'groq-sdk'
 import fs from 'fs'
 import path from 'path'
 
+export const runtime = 'nodejs'
+
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY })
 
 const DEFAULT_SYSTEM_PROMPT =
