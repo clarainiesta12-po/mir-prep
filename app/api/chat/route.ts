@@ -2,25 +2,15 @@ export const runtime = 'nodejs'
 
 import { NextRequest, NextResponse } from 'next/server'
 import Groq from 'groq-sdk'
-import fs from 'fs'
-import path from 'path'
+import { getSystemPrompt } from '@/lib/systemPrompts'
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY })
-
-const DEFAULT_SYSTEM_PROMPT =
-  'Eres un tutor MIR experto y cercano. Ayudas a Ana a preparar el examen MIR enero 2027. Responde siempre en español, de forma directa y orientada al examen.'
 
 export async function POST(req: NextRequest) {
   try {
     const { message, specialty, category, history } = await req.json()
 
-    let systemPrompt = DEFAULT_SYSTEM_PROMPT
-    try {
-      const promptPath = path.join(process.cwd(), 'agents', category, specialty, 'system-prompt.md')
-      systemPrompt = fs.readFileSync(promptPath, 'utf-8')
-    } catch {
-      // file not found, use default
-    }
+    const systemPrompt = getSystemPrompt(category, specialty)
 
     const messages: Groq.Chat.ChatCompletionMessageParam[] = [
       { role: 'system', content: systemPrompt },
