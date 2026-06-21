@@ -40,6 +40,6 @@ export async function POST(req: NextRequest) {
     })
   } catch (error) {
     console.error('[chat/route] error:', error)
-    return NextResponse.json({ error: 'Error interno del servidor' }, { status: 500 })
+    return NextResponse.json({ error: String(error), details: error instanceof Error ? error.message : 'unknown' }, { status: 500 })
   }
 }
