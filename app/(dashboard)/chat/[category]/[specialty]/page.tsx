@@ -3,6 +3,8 @@
 import { useState, useEffect, useRef, use } from 'react'
 import { Send, ChevronLeft } from 'lucide-react'
 import Link from 'next/link'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 type Message = {
   role: 'user' | 'assistant'
@@ -33,7 +35,7 @@ export default function ChatPage({
 
   const welcomeMessage: Message = {
     role: 'assistant',
-    content: `Hola Ana, soy tu tutor especialista en ${specialtyLabel}. Puedes preguntarme cualquier duda del MIR sobre esta materia o pedirme que te explique una pregunta que hayas fallado. ¿Por dónde empezamos?`,
+    content: `Hola Ana, soy tu tutor especialista en **${specialtyLabel}**. Puedes preguntarme cualquier duda del MIR sobre esta materia o pedirme que te explique una pregunta que hayas fallado. ¿Por dónde empezamos?`,
   }
 
   const [messages, setMessages] = useState<Message[]>([welcomeMessage])
@@ -136,20 +138,24 @@ export default function ChatPage({
           >
             {/* Agent avatar */}
             {msg.role === 'assistant' && (
-              <div className="h-7 w-7 rounded-lg bg-brand-600 flex items-center justify-center shrink-0 mb-0.5">
+              <div className="h-7 w-7 rounded-lg bg-brand-600 flex items-center justify-center shrink-0 mb-0.5 self-start mt-1">
                 <span className="text-white font-bold text-[10px]">{initials}</span>
               </div>
             )}
 
-            <div
-              className={`max-w-[75%] px-4 py-3 rounded-2xl text-sm leading-relaxed whitespace-pre-wrap ${
-                msg.role === 'user'
-                  ? 'bg-brand-600 text-white rounded-br-sm'
-                  : 'bg-gray-100 text-gray-800 rounded-bl-sm'
-              }`}
-            >
-              {msg.content}
-            </div>
+            {msg.role === 'user' ? (
+              <div className="max-w-[75%] px-4 py-3 rounded-2xl rounded-br-sm text-sm leading-relaxed bg-brand-600 text-white">
+                {msg.content}
+              </div>
+            ) : (
+              <div className="max-w-[80%] px-4 py-3 rounded-2xl rounded-bl-sm bg-gray-100">
+                <div className="chat-content">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {msg.content}
+                  </ReactMarkdown>
+                </div>
+              </div>
+            )}
           </div>
         ))}
 
